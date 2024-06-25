@@ -1,0 +1,21 @@
+<p>message-board works!</p>
+
+
+
+<ul>
+    @for (item of (item$ | async); track item) {
+    <li>
+        {{ item.name }} : {{ item.text }}
+    </li>
+    }
+</ul>
+
+
+<form className="send-message">
+    <label htmlFor="messageInput" hidden>
+        Enter Message
+    </label>
+    <input id="messageInput" [(ngModel)]="userMessage" name="messageInput" type="text" className="form-input__input"
+        placeholder="type message..." />
+    <button type="submit" (click)="onSubmit()">Send</button>
+</form>
