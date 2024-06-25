@@ -44,4 +44,4 @@ Thumbs.db
 .angular
 
 # secrets
-apps/chat/src/environments.ts
+apps/chat/src/environments/environments.ts

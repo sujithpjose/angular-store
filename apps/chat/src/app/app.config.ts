@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { firebaseConfig } from '../environments';
+import { firebaseConfig } from '../environments/environments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
