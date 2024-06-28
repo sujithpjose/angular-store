@@ -20,7 +20,7 @@ export class ChatService {
 
   async createChat(
     participants: string[],
-    type: 'individual' | 'group',
+    type: 'individual' | 'group' = 'individual',
     groupName?: string
   ) {
     const docRef = await addDoc(collection(this.firestore, 'chats'), {
@@ -48,10 +48,10 @@ export class ChatService {
   }
 
   getMessages(chatId: string) {
-    const msgCollection = collection(this.firestore, `chat/${chatId}/messages`);
+    const msgCollection = collection(this.firestore, `chats/${chatId}/messages`);
     const queryString = query(msgCollection, orderBy('createdAt'));
 
-    return collectionData(queryString);
+    return collectionData(queryString, { idField: 'id' });
   }
 
   getChats(userId: string) {
@@ -61,6 +61,6 @@ export class ChatService {
       where('participants', 'array-contains', userId)
     );
 
-    return collectionData<any>(queryString);
+    return collectionData<any>(queryString, { idField: 'id' });
   }
 }

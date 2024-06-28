@@ -1,1 +1,5 @@
-<p>people-list works!</p>
+<ul>
+  @for (chat of (chats$ | async); track chat) {
+  <li (click)="onSelect(chat.id)">{{ chat.participants}}</li>
+  }
+</ul>

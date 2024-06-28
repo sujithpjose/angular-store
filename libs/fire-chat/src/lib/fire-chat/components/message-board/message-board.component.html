@@ -1,11 +1,8 @@
-<p>message-board works!</p>
-
-
 
 <ul>
-    @for (item of (item$ | async); track item) {
+    @for (message of (messages$ | async); track message.id) {
     <li>
-        {{ item.name }} : {{ item.text }}
+        {{ message?.senderId }} : {{ message?.messageText }}
     </li>
     }
 </ul>

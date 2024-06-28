@@ -1,5 +1,5 @@
-<p>home works!</p>
+<lib-login />
 <div class="container">
-  <lib-people-list></lib-people-list>
-  <lib-message-board></lib-message-board>
+  <lib-people-list (chatSelected)="chatId = $event"></lib-people-list>
+  <lib-message-board [chatId]="chatId"></lib-message-board>
 </div>

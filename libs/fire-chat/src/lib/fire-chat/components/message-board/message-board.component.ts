@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { inject } from '@angular/core';
-import { Firestore, collectionData, collection, addDoc, serverTimestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ChatService } from '../../services/chat/chat.service';
 
 @Component({
   selector: 'lib-message-board',
@@ -12,29 +12,28 @@ import { Observable } from 'rxjs';
   templateUrl: './message-board.component.html',
   styleUrl: './message-board.component.css',
 })
-export class MessageBoardComponent implements OnInit {
-  item$: Observable<any> | undefined;
+export class MessageBoardComponent {
+  chatId = input<string>();
+  messages$: Observable<any> | undefined;
   userMessage = '';
-  private firestore: Firestore = inject(Firestore);
+  private chatService = inject(ChatService);
 
-  ngOnInit(): void {
-    const itemCollection = collection(this.firestore, 'messages');
-    this.item$ = collectionData<any>(itemCollection);
+  constructor() {
+    effect(() => {
+      debugger;
+      if (this.chatId()) {
+        this.messages$ = this.chatService.getMessages(this.chatId() as string);
+      }
+    });
   }
 
   async onSubmit() {
+    await this.chatService.sendMessage(
+      this.chatId() as string,
+      this.userMessage,
+      (sessionStorage.getItem('userName') as string) || 'sujith'
+    );
     console.log('message submitted', this.userMessage);
-    if (this.userMessage.trim() === '') {
-      alert("Enter valid message");
-      return;
-    }
-    const docRef = await addDoc(collection(this.firestore, 'messages'), {
-      text: this.userMessage,
-      name: sessionStorage.getItem('userName'),
-      createdAt: serverTimestamp(),
-      uid: sessionStorage.getItem('userName')
-    });
-    console.log("Document written with ID: ", docRef.id);
     this.userMessage = '';
   }
 }
