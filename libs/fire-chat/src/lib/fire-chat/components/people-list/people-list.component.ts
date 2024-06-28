@@ -16,9 +16,8 @@ export class PeopleListComponent implements OnInit {
   chatService = inject(ChatService);
 
   ngOnInit(): void {
-    debugger
     const loggedInUserId = sessionStorage.getItem('userName') as string;
-    this.chats$ = this.chatService.getChats('sujith');
+    this.chats$ = this.chatService.getChats(loggedInUserId);
   }
 
   async onNewChat(userId: string) {

@@ -20,7 +20,6 @@ export class MessageBoardComponent {
 
   constructor() {
     effect(() => {
-      debugger;
       if (this.chatId()) {
         this.messages$ = this.chatService.getMessages(this.chatId() as string);
       }
@@ -31,7 +30,7 @@ export class MessageBoardComponent {
     await this.chatService.sendMessage(
       this.chatId() as string,
       this.userMessage,
-      (sessionStorage.getItem('userName') as string) || 'sujith'
+      (sessionStorage.getItem('userName') as string)
     );
     console.log('message submitted', this.userMessage);
     this.userMessage = '';

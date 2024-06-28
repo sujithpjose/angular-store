@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,8 +9,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   userName = '';
+  ngOnInit(): void {
+    this.userName = sessionStorage.getItem('userName') ?? '';
+  }
   onLogin() {
     console.log('clicked login', this.userName);
     sessionStorage.setItem('userName', this.userName);
