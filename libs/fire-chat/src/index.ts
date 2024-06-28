@@ -1,1 +1,1 @@
-export * from './lib/fire-chat/fire-chat.component';
+export * from './lib/fire-chat/page/home.component';
